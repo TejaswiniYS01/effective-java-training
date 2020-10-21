@@ -1,2 +1,2 @@
 
-javac -cp .;./com;./in FurnitureApp.java
+javac -cp . FurnitureApp.java
