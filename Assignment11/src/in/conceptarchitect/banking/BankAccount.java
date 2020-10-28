@@ -6,12 +6,11 @@ public class BankAccount {
 	
 	
 	int accountNumber;
-	String name;
-	String password;
-	double balance;
+	private String name;
+	private String password;
+	protected double balance;
 	
-	
-	
+		
 	public  BankAccount( String name, String password, double amount) {
 		
 		//this.accountNumber= ++accountCount; //will be supplied by the bank
@@ -21,6 +20,29 @@ public class BankAccount {
 		this.balance=amount; 
 		   
 	}
+	
+	public boolean withdraw(double amount, String password) {
+		// TODO Auto-generated method stub
+		
+		if(!authenticate(password)) {			
+			return false;
+		}else if(amount<=0) {
+			
+			return false;
+			
+		} else if(amount> balance) {
+			
+			return false;
+			
+		}else {
+			
+			balance-=amount;
+			return true;
+			
+		}
+		
+	}
+
 	
 	
 
@@ -92,27 +114,6 @@ public class BankAccount {
 		
 	}
 
-	public boolean withdraw(double amount, String password) {
-		// TODO Auto-generated method stub
-		
-		if(!authenticate(password)) {			
-			return true;
-		}else if(amount<=0) {
-			
-			return false;
-			
-		} else if(amount> balance) {
-			
-			return false;
-			
-		}else {
-			
-			
-			return true;
-			
-		}
-		
-	}
 
 	public void creditInterest(double interestRate) {
 		// TODO Auto-generated method stub
@@ -122,7 +123,7 @@ public class BankAccount {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return String.format("%d\t%f\t%s", accountNumber,balance,name);
+		return String.format("%s %d\t%f\t%s", this.getClass().getSimpleName(), accountNumber,balance,name);
 	}
 	
 	

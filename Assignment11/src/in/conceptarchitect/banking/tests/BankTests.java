@@ -1,15 +1,19 @@
 package in.conceptarchitect.banking.tests;
 
-
+import static in.conceptarchitect.utils.CustomAsserts.assertType;
 import static org.junit.Assert.*;
+
 
 import org.junit.Before;
 import org.junit.Test;
 
 import in.conceptarchitect.banking.Bank;
 import in.conceptarchitect.banking.BankAccount;
+import in.conceptarchitect.banking.SavingsAccount;
 
 public class BankTests {
+	
+
 	
 	
 	BankAccount account;
@@ -29,8 +33,8 @@ public class BankTests {
 	public void init() {
 		bank = new Bank("icici",interestRate);
 		account=new BankAccount(name,correctPassword, balance);
-		sourceAccountNumber = bank.openAccount(name,correctPassword, balance);
-		targetAccountNumber = bank.openAccount(toName, toPassword, toBalance);
+		sourceAccountNumber = bank.openAccount("savings",name,correctPassword, balance);
+		targetAccountNumber = bank.openAccount("savings",toName, toPassword, toBalance);
 		
 	}
 	
@@ -92,6 +96,19 @@ public class BankTests {
 	@Test
 	public void openAccount_AssignsSequentialAccountNumber() {
 		assertEquals(targetAccountNumber,sourceAccountNumber+1);
+	}
+	
+	@Test
+	public void openAccount_withSavingsTypeCreatesASavingAccount() {
+		
+		Bank bank=new Bank("bank name",1);
+		
+		bank.openAccount("savings", "someone", "somepassword", 1000);
+		
+		BankAccount account=bank.getAccount(1,"somepassword");
+		
+		assertType(SavingsAccount.class, account);
+		
 	}
 	
 
