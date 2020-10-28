@@ -88,6 +88,7 @@ public class OverdraftAccountTests {
 	public void withdraw_canPushMyBalanceToNegative() {
 		Double balance = account.getBalance();
 		Double odLimit = account.getOdLimit();
+		account.withdraw(balance+odLimit, password);
 		Double bal = account.getBalance();
 		assertTrue(bal<0);
 	}
